@@ -7,7 +7,7 @@ def check_for_updates():
     Checks GitHub Releases for a newer version.
     """
     # Replace 'your-username' and 'your-repo-name'
-    repo_url = "https://api.github.com/repos/BDib/sentry-mirror/releases/latest"
+    repo_url = "https://api.github.com/repos/BDib/sentrymirror/releases/latest"
     
     try:
         response = requests.get(repo_url, timeout=5)
