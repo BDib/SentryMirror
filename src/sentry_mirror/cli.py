@@ -13,6 +13,7 @@ from sentry_mirror.audit import run_security_audit
 from sentry_mirror.models import FullAnalysisReport
 from sentry_mirror.__about__ import __version__
 from sentry_mirror.utils import check_for_updates
+from sentry_mirror.web_ui import app as ui_app
 
 async def main_async(args):
     # Override settings with CLI arguments
@@ -62,6 +63,7 @@ async def main_async(args):
     # Launch servers if requested
     if settings.simulate_api or settings.serve_local_site:
         simulator = ApiSimulator(db_manager, crawler.inferred_schemas)
+        simulator.app.mount("/dashboard", ui_app)
         if settings.serve_local_site:
             simulator.mount_static_files(settings.output_dir)
 
