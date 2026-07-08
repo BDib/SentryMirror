@@ -1,4 +1,4 @@
-# 🛡️ SentryMirror v0.4.1.3
+# 🛡️ SentryMirror v0.4.1.4
 
 **The proactive diagnostic toolkit for web mirroring, API analysis, and security hardening.**
 
