@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Local database and output folders
+*.db
+full_analysis_mirror/
+security_report.txt
+src/sentry_mirror.egg-info/
+
+# Virtual Environments
+venv/
+env/
+.venv/
+
+# IDE/OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

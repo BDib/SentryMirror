@@ -1,0 +1,14 @@
+aiohttp
+aiosqlite
+beautifulsoup4
+fastapi
+jsbeautifier
+lxml 
+playwright
+python-wappalyzer
+requests
+secure
+uvicorn
+pydantic
+pydantic-settings
+setuptools<70
