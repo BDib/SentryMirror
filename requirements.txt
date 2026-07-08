@@ -12,3 +12,4 @@ uvicorn
 pydantic
 pydantic-settings
 setuptools<70
+PySide6

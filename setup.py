@@ -26,6 +26,7 @@ setup(
         "requests",
         "secure",
         "uvicorn",
+        "PySide6",
         "pydantic",
         "pydantic-settings",
     ],

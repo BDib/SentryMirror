@@ -1,7 +1,7 @@
 import argparse
 import asyncio
 import json
-import os
+import os, sys
 from datetime import datetime
 
 from sentry_mirror.logger import logger
@@ -73,42 +73,51 @@ async def main_async(args):
         simulator.run(port)
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="SentryMirror: Advanced Web Mirror & API Analyzer",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Examples:
-  sentry-mirror https://example.com
-  sentry-mirror https://example.com --output ./mirror --web-port 9000
-  sentry-mirror https://example.com --depth 2 --delay 0.5
+    
+    if len(sys.argv) == 1:
+        from PySide6.QtWidgets import QApplication
+        from sentry_mirror.gui import SentryMirrorGUI
+        app = QApplication(sys.argv)
+        window = SentryMirrorGUI()
+        window.show()
+        sys.exit(app.exec())
+    else:
+        parser = argparse.ArgumentParser(
+            description="SentryMirror: Advanced Web Mirror & API Analyzer",
+            formatter_class=argparse.RawDescriptionHelpFormatter,
+            epilog="""
+    Examples:
+    sentry-mirror https://example.com
+    sentry-mirror https://example.com --output ./mirror --web-port 9000
+    sentry-mirror https://example.com --depth 2 --delay 0.5
         """
-    )
-    parser.add_argument("url", nargs="?", help="URL to crawl (e.g. https://example.com)")
-    parser.add_argument("--output", help="Folder to save the mirrored site and reports (default: ./full_analysis_mirror)")
-    parser.add_argument("--db", help="SQLite database file")
-    parser.add_argument("--web-port", type=int, help="Port for local site")
-    parser.add_argument("--api-port", type=int, help="Port for simulated API")
-    parser.add_argument("--depth", type=int, help="Max crawl depth")
-    parser.add_argument("--delay", type=float, help="Seconds between requests to avoid blocking (default: 1.0)")
-    parser.add_argument("--check-update", action="store_true", help="Check for tool updates")
-    parser.add_argument("-v", "--version", action="version", version=f"%(prog)s {__version__}")
+        )
+        parser.add_argument("url", nargs="?", help="URL to crawl (e.g. https://example.com)")
+        parser.add_argument("--output", help="Folder to save the mirrored site and reports (default: ./full_analysis_mirror)")
+        parser.add_argument("--db", help="SQLite database file")
+        parser.add_argument("--web-port", type=int, help="Port for local site")
+        parser.add_argument("--api-port", type=int, help="Port for simulated API")
+        parser.add_argument("--depth", type=int, help="Max crawl depth")
+        parser.add_argument("--delay", type=float, help="Seconds between requests to avoid blocking (default: 1.0)")
+        parser.add_argument("--check-update", action="store_true", help="Check for tool updates")
+        parser.add_argument("-v", "--version", action="version", version=f"%(prog)s {__version__}")
 
-    args = parser.parse_args()
+        args = parser.parse_args()
 
-    if args.check_update:
-        check_for_updates()
+        if args.check_update:
+            check_for_updates()
+            if not args.url:
+                return
+
         if not args.url:
+            parser.print_help()
             return
 
-    if not args.url:
-        parser.print_help()
-        return
+        if not args.url.startswith(("http://", "https://")):
+            logger.error("❌ Invalid URL — use http:// or https://")
+            return
 
-    if not args.url.startswith(("http://", "https://")):
-        logger.error("❌ Invalid URL — use http:// or https://")
-        return
-
-    asyncio.run(main_async(args))
+        asyncio.run(main_async(args))
 
 if __name__ == "__main__":
     main()
