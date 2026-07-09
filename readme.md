@@ -22,10 +22,17 @@ SentryMirror is a sophisticated tool designed for developers to "twin" their own
 ## 📦 Getting Started
 
 ### Prerequisites
-* Python 3.10+
+* Python 3.11+
 * [Playwright](https://playwright.dev/) installed
 
 ### Installation
+
+* Clone the Repo at https://github.com/BDib/SentryMirror
+
+```bash
+git clone https://github.com/BDib/SentryMirror.git
+```
+
 ```bash
 pip install -e .
 playwright install chromium
