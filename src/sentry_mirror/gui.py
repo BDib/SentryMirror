@@ -1,7 +1,7 @@
 import sys
 import asyncio
-from PySide6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QLineEdit, 
-                               QPushButton, QSpinBox, QDoubleSpinBox, QTextEdit, QLabel, QFormLayout)
+from PySide6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, 
+                               QPushButton, QSpinBox, QDoubleSpinBox, QTextEdit, QLabel, QFormLayout, QFileDialog)
 from PySide6.QtCore import QThread, Signal, Slot
 from sentry_mirror.crawler import Crawler
 from sentry_mirror.config import settings
